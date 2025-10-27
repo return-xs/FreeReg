@@ -13,6 +13,7 @@ class pipeline_run():
                  update_gf = True,
                  update_pca = False) -> None:
         self.cfg = cfg
+        # 读取数据集并构造所有需要的信息
         self.metas = gen_meta(self.cfg).run()
         self.rgb_ftype = rgb_ftype
         self.dpt_ftype = dpt_ftype
@@ -104,7 +105,7 @@ if __name__ == '__main__':
                           update_df = update_df,
                           update_gf = update_gf,
                           update_pca = update_pca)
-    runner.zoe()
+    runner.zoe() # 会在数据集的 query 同目录下，生成 eval 目录，保存 rgb 图片经过 zoe 深度估计后的深度图
     runner.feat()
     runner.match()
     runner.eval()

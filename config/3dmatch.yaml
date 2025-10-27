@@ -6,7 +6,7 @@ meta:
   pair_type: 'overlap'
   overlap_pair: 0.3  
   seq_n_pair: 0 # no use
-  rgb_size: [640,480]
+  rgb_size: [640,480] # width，height
   dpt_size: [640,480]
   rgb_intrinsic: [[585,0,320],[0,585,240],[0,0,1]]
   dpt_intrinsic: [[585,0,320],[0,585,240],[0,0,1]]

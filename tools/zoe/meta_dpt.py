@@ -41,7 +41,7 @@ class meta_dpt():
     
     def run_dpts(self, meta):
         # process querys
-        for _, q_item in tqdm(meta['frames'].items()):
+        for _, q_item in tqdm(meta['frames'].items()): # meta['frames'].items(), key: q_id, value: item
             # to save fns
             if not ('rgb_fn' in q_item):continue
             if not ('zoe_fn' in q_item):raise TypeError('identify a zoe fn!')
@@ -96,7 +96,7 @@ class depth_generator():
         self.processor.run_dpts(meta)
 
     def run(self, metas):
-        for scene, meta in metas.items():
+        for scene, meta in metas.items(): # key value
             self.process_meta(scene, meta)
         if self.update_dpt:
             print(f'Average depth estimation time (w/o file loading): {timer.avg}s / image')

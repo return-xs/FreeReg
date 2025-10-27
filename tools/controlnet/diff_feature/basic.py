@@ -209,7 +209,7 @@ class capture():
         scale_x, scale_y = int(ho/hd), int(wo/wd)
         uv[:,1] *= scale_x
         uv[:,0] *= scale_y
-        uv[:,1] += int(scale_x/2.0)
+        uv[:,1] += int(scale_x/2.0) # 将特征图缩放回原始图像，就是从一个像素变成了一个像素块，因此坐标要偏移到像素块中心
         uv[:,0] += int(scale_y/2.0)
         return uv
 

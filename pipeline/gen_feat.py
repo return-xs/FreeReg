@@ -113,12 +113,24 @@ class pipeline_feat():
         else:
             target_w, target_h = self.cfg.meta.dpt_size
         # select a subset of intermediate feature maps
-        def return_uv(target_h, target_w, feat):
-            hf, wf = feat.shape[1:]
-            u = np.arange(wf)[None,:,None].repeat(hf,axis=0)
-            v = np.arange(hf)[:,None,None].repeat(wf,axis=1)
+        def return_uv(target_h, target_w, feat): # 为特征图的每一个像素，生成一个坐标 (u,v)
+            hf, wf = feat.shape[1:] # feat shape: c*h*w
+            ''' u:
+            [
+                [[0], [1], [2]],  # 第0行的u坐标
+                [[0], [1], [2]]   # 第1行的u坐标
+            ]
+            '''
+            u = np.arange(wf)[None,:,None].repeat(hf,axis=0) # 为每个像素生成横坐标
+            ''' v:
+            [
+                [[0], [0], [0]],  # 第0行的v坐标都是0
+                [[1], [1], [1]]   # 第1行的v坐标都是1
+            ]
+            '''
+            v = np.arange(hf)[:,None,None].repeat(wf,axis=1) # 为每个像素生成纵坐标
             uv = np.concatenate([u, v],axis=-1)
-            uv = uv.reshape(-1,2)
+            uv = uv.reshape(-1,2) # uv shape: [wf * hf, 2]
             uv = self.control.capturer.uv_back_to_origin(uv, target_h, target_w, hf, wf)
             return uv
         # check layers  cuda tensor -> cpu tensor
@@ -172,6 +184,7 @@ class pipeline_feat():
             qf[mask] *= 0.0
         return qf
 
+    # 提取扩散特征
     def frame_cn(self, item):
         # rgb features
         if ('rgb_fn' in item):
@@ -188,6 +201,7 @@ class pipeline_feat():
             item['dpt_df_uv'] = dpt_df_f['uv']
             item['dpt_df_f'] = dpt_df_f['feat'] # a dict
 
+    # 提取几何特征
     def frame_fcgf(self, item):
         if ('zoe_fn' in item):
             # zoe for rgb
@@ -228,7 +242,7 @@ class pipeline_feat():
             return 0
         else:
             if cond:
-                item = torch.load(item['to_fn'])
+                item = torch.load(item['to_fn']) # 取出 metas 处理时保存的特征
             if (not cond) or self.update_df_feat:
                 print(f'Extracting diffusion features.')
                 self.frame_cn(item)
