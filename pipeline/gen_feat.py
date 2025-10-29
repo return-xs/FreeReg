@@ -134,7 +134,7 @@ class pipeline_feat():
             uv = self.control.capturer.uv_back_to_origin(uv, target_h, target_w, hf, wf)
             return uv
         # check layers  cuda tensor -> cpu tensor
-        feats = {i:feats[i].cpu() for i in self.save_layers}
+        feats = {i:feats[i].cpu() for i in self.save_layers} 
         # uv in origin img: n*2
         uv = return_uv(target_h, target_w, feats[max(self.check_layers)]).reshape(-1,2)
         return {'uv':uv, 'feat':feats}

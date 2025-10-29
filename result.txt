@@ -10,3 +10,27 @@ Inlier number at ir_thres 0.3: 97.800826446281
 Average rotation error: 63.03087591901286; Average translation error: 1.5484380193396874
 On successful pairs: Average rotation error: 6.999170003724188; Average translation error: 0.2555151585991368
 Registration recall at r_thres 20 and t_thres 0.5: 0.22396694214876034
+2025-10-27 16:39:58
+Dataset: scannet
+Source feature: ['rgb_df', 'rgb_gf']
+Target feature: ['dpt_df', 'dpt_gf']
+Feature weight: [1, 1]
+SE(3) Solver: se3
+Feature matching ratio at ir_thres 0.3: 0.9881974248927039
+Inlier ratio at ir_thres 0.3: 0.6185476042162394
+Inlier number at ir_thres 0.3: 122.7381974248927
+Average rotation error: 54.68831896342261; Average translation error: 1.2531824042937056
+On successful pairs: Average rotation error: 6.8971915139812605; Average translation error: 0.2376366414649901
+Registration recall at r_thres 20 and t_thres 0.5: 0.34527896995708157
+2025-10-28 09:30:19
+Dataset: kitti
+Source feature: ['rgb_df', 'rgb_gf']
+Target feature: ['dpt_df', 'dpt_gf']
+Feature weight: [1, 1]
+SE(3) Solver: se3
+Feature matching ratio at ir_thres 3: 1.0
+Inlier ratio at ir_thres 3: 0.6066997820258913
+Inlier number at ir_thres 3: 146.92690058479533
+Average rotation error: 8.55635972362595; Average translation error: 2.972673261591042
+On successful pairs: Average rotation error: 4.932284697593301; Average translation error: 1.8204274542013983
+Registration recall at r_thres 10 and t_thres 4: 0.7192982456140351

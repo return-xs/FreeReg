@@ -35,15 +35,19 @@ class img_processor():
 
     def sd_process(self, img, prompt = ''):
         # diffusion encoding
-        img = self.capturer.model.encode_first_stage(img)
+        img = self.capturer.model.encode_first_stage(img) # 将图像压缩到隐藏空间
         # encoder comes f -> 1*4*64*88
-        img = self.capturer.model.get_first_stage_encoding(img).detach() 
+        img = self.capturer.model.get_first_stage_encoding(img).detach() # VAE: 降低分辨率
+
         # add noise
         noise_img = self.add_noise(img)
+
         # diffusion u-net
+        # 通过交叉注意力（cross-attention）将文本提示与图像特征关联，get_learned_conditioning将文本字符串转换为嵌入向量
         cond = {"c_crossattn": [self.capturer.model.get_learned_conditioning([prompt + ', ' + self.capturer.a_prompt])]}
         cond_txt = torch.cat(cond['c_crossattn'], 1).to(self.capturer.device)
         with torch.no_grad():
+            # 获取middle层+decoder层的扩散特征（1+12）
             _, inter_feats = self.capturer.model.model.diffusion_model(x=noise_img, 
                                 timesteps=self.capturer.tlist, 
                                 context=cond_txt, 
@@ -52,7 +56,7 @@ class img_processor():
                                 per_layers = True)
         # 1*c*h*w -> c*h*w
         inter_feats = [i[0].detach() for i in inter_feats]
-        return inter_feats
+        return inter_feats # 返回U-Net各层的中间特征
 
     def sd_single_img(self, img_fn:str, prompt = ''):
         # sd input:

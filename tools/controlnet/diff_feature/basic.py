@@ -145,7 +145,7 @@ class capture():
         img = Image.fromarray(img)
         img.show()
 
-    def visualize_chw_feat(self, imgin):
+    def visualize_chw_feat(self, imgin, i = -1):
         # input should be c*h*w feature map
         assert len(imgin.shape) == 3        
         img = deepcopy(imgin)
@@ -155,7 +155,7 @@ class capture():
 
         # normalize to 0-255
         def visual_normalize(img):
-            img = img.astype(np.float64)
+            img = img.detach().cpu().numpy().astype(np.float64)
             vmin = np.percentile(img, 2)
             vmax = np.percentile(img, 85)
             img -= vmin
@@ -165,6 +165,8 @@ class capture():
 
         img = visual_normalize(img)
         img = Image.fromarray(img)
+        if i>=0:
+            img.save(f'feat_{i}.png')
         img.show()
 
     def visualize_diffusion_result(self, img):

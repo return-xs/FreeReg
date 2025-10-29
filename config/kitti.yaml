@@ -1,7 +1,7 @@
 name: 'kitti'
 
 meta:
-  base: './data/kitti_dc/test'
+  base: 'data/kitti_dc'
   feat_base: './tale_features'
   pair_type: 'seq'
   overlap_pair: 0.3  # no use

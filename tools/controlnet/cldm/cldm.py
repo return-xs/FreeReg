@@ -26,20 +26,20 @@ class ControlledUnetModel(UNetModel):
             t_emb = timestep_embedding(timesteps, self.model_channels, repeat_only=False)
             emb = self.time_embed(t_emb)
             h = x.type(self.dtype)
-            for module in self.input_blocks:
+            for module in self.input_blocks: # input_blocks 就是 encoder
                 h = module(h, emb, context)
                 hs.append(h)
             h = self.middle_block(h, emb, context)
-        houts.append(h.type(x.dtype))
+        houts.append(h.type(x.dtype)) # houts[0] 保存 middle 层的输出
         if control is not None:
             h += control.pop()
-        for i, module in enumerate(self.output_blocks):
+        for i, module in enumerate(self.output_blocks): # output_blocks 就是 decoder
             if only_mid_control or control is None:
                 h = torch.cat([h, hs.pop()], dim=1)
             else:
                 h = torch.cat([h, hs.pop() + control.pop()], dim=1)
             h = module(h, emb, context)
-            houts.append(h.type(x.dtype))
+            houts.append(h.type(x.dtype)) # houts[1:] 保存 decoder 层的输出
 
         h = h.type(x.dtype)
         if not per_layers:
