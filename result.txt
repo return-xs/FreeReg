@@ -46,3 +46,15 @@ Inlier number at ir_thres 0.3: 97.800826446281
 Average rotation error: 61.51595216975242; Average translation error: 1.556337105777861
 On successful pairs: Average rotation error: 7.3006846819123785; Average translation error: 0.27820761079358947
 Registration recall at r_thres 20 and t_thres 0.5: 0.2206611570247934
+2025-10-29 09:40:51
+Dataset: 3dmatch
+Source feature: ['rgb_df', 'rgb_gf']
+Target feature: ['dpt_df', 'dpt_gf']
+Feature weight: [1, 1]
+SE(3) Solver: se3
+Feature matching ratio at ir_thres 0.3: 0.956198347107438
+Inlier ratio at ir_thres 0.3: 0.5433398677923866
+Inlier number at ir_thres 0.3: 97.800826446281
+Average rotation error: 63.28827520049322; Average translation error: 1.5765234388704894
+On successful pairs: Average rotation error: 7.251676053213628; Average translation error: 0.265208086052668
+Registration recall at r_thres 20 and t_thres 0.5: 0.228099173553719

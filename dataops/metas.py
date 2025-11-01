@@ -87,7 +87,7 @@ class gen_meta():
                     'rgb_fn': f'{self.base}/{name}/query/{q_id}.color.png', # RGB 图路径
                     'zoe_fn': f'{self.base}/{name}/eval/query/{q_id}.depth.gen.npy', # RGB 输入到 zoe 生成的深度图路径
                     # conform to dpt intrinsic and dpt image size
-                    'dpt_fn': dpt_fn, # 深度图路径
+                    'dpt_fn': dpt_fn, # 点云深度图路径
                     'dpt_scale': self.dpt_scale, # 深度缩放因子
                     # for evaluation
                     'rgb_gtd': rgb_gt_dpt,

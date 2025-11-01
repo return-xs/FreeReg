@@ -47,7 +47,7 @@ class img_processor():
         cond = {"c_crossattn": [self.capturer.model.get_learned_conditioning([prompt + ', ' + self.capturer.a_prompt])]}
         cond_txt = torch.cat(cond['c_crossattn'], 1).to(self.capturer.device)
         with torch.no_grad():
-            # 获取middle层+decoder层的扩散特征（1+12）
+            # 获取middle层+decoder层的扩散特征（1+12）‘cldm.py -> ControlledUnetModel’
             _, inter_feats = self.capturer.model.model.diffusion_model(x=noise_img, 
                                 timesteps=self.capturer.tlist, 
                                 context=cond_txt, 

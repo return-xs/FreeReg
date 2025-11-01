@@ -127,6 +127,7 @@ class pipeline_match():
                         # now we need to conduct pca on each feature map and conduct concatenate
                         # here checklayers already be applied when saving items
                         # the feature map size is c*h*w [*16 downsampling]
+                        # 调用特征捕捉器进行PCA降维（输入特征、检查层、降维维度）
                         sf, tf = self.capturor.merge_feat(sf, tf, checklayers = self.check_layers, pca_dim = self.pca_dim)
                         content = {'sf':sf, 'tf':tf}
                         torch.save(content, pca_feat_fn)
